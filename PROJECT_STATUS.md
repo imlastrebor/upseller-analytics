@@ -9,6 +9,7 @@
 - ✅ Manual Voiceflow analytics proxy (`/api/vf/usage`) working locally and on Vercel.
 - ✅ Cron collector (`/api/cron/vf-usage`) tested locally with real Voiceflow credentials.
 - ✅ Environment variables configured on Vercel for the first client (PKS).
+- ✅ Supabase project created; schema SQL and client scaffolding committed (ingestion pending).
 - ⚠️ Multi-client credential strategy still open (see §6).
 - 🚫 No persistence layer yet (Supabase planned for Phase 2).
 - 🚫 No automated tests beyond `tsc --noEmit`.
@@ -23,12 +24,16 @@ api/
 lib/
   env.ts               # Environment variable helper
   voiceflow.ts         # Voiceflow API client + typed error
+  supabase.ts          # Supabase service client factory
+  tenants.ts           # Tenant/project credential loaders (requires decryption logic)
 README.md              # Setup & usage instructions
 PROJECT_STATUS.md      # This status brief
 vercel.json            # Cron schedule config (03:00 UTC)
 tsconfig.json          # NodeNext ESM configuration
 .env.local             # Local secrets (ignored by git)
 .gitignore
+supabase/
+  schema.sql           # Bootstrap SQL for tenants, credentials, usage, pulls
 ```
 
 ## 3. Runtime Flow
@@ -62,6 +67,8 @@ tsconfig.json          # NodeNext ESM configuration
 | `VF_ENVIRONMENT_ID` | ➖ | Optional Voiceflow environment filter (per project). |
 | `VF_TIMEZONE` | ➖ | Informational timezone string, echoed in cron responses. |
 | `VF_METRICS` | ➖ | Optional comma-separated list of metrics the cron collector should request. Defaults to all supported metrics. |
+| `SUPABASE_URL` | ✅ | Supabase project base URL. |
+| `SUPABASE_SERVICE_ROLE_KEY` | ✅ | Server-side key for authenticated inserts/updates (never exposed to clients). |
 | *(Vercel internal)* `VERCEL_OIDC_TOKEN` | auto | Populated during `vercel env pull`; not used explicitly. |
 
 Local development uses `.env.local`. Vercel holds the same vars per environment; redeploy after changes.
@@ -90,6 +97,7 @@ Decision pending stakeholder preferences.
 ## 7. Upcoming Work (Roadmap Alignment)
 1. **Phase 1 wrap-up**
    - Decide on credential strategy for additional clients.
+   - Run `supabase/schema.sql`, seed initial tenant/project data, and wire ingestion to Supabase.
    - Add structured logging/monitoring for cron execution (e.g., Vercel log drains).
 2. **Phase 2**
    - Integrate Supabase (EU) and persist cron results (table schema TBD).

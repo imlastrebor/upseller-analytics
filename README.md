@@ -29,6 +29,8 @@ Set these in Vercel (Project Settings → Environment Variables) and in your loc
 | `VF_ENVIRONMENT_ID` | Environment ID to query (optional if you fetch across all environments). |
 | `VF_TIMEZONE` | Timezone identifier such as `Europe/Helsinki` (optional, used for metadata/logging). |
 | `VF_METRICS` | Optional comma-separated list of metrics to collect in cron runs. Defaults to all supported metrics. |
+| `SUPABASE_URL` | Supabase project URL (e.g. `https://...supabase.co`). |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service role key used server-side for database access. Keep this secret; never expose it client-side. |
 
 ## Endpoints
 - `GET /api/vf/usage`  
@@ -43,5 +45,6 @@ Both endpoints return the raw Voiceflow response alongside metadata about the ru
 
 ## Next Steps
 - Add persistence (e.g., Supabase) and call it from the cron handler.
+- Run the SQL in `supabase/schema.sql` to bootstrap the multi-tenant tables and placeholder RLS policies.
 - Extend analytics payload normalization if you require additional metrics.
 - Write automated integration tests once storage is in place.
