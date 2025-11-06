@@ -1,10 +1,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getEnv } from '../../lib/env';
+import { getEnv } from '../../lib/env.js';
 import {
   queryVoiceflowUsage,
   VoiceflowApiError,
   type VoiceflowUsageQuery,
-} from '../../lib/voiceflow';
+} from '../../lib/voiceflow.js';
 
 type AggregatedResult =
   | {
