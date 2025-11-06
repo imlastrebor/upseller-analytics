@@ -95,6 +95,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     (typeof req.query.endTime === 'string' && req.query.endTime) || sourceWindow.endTime;
   const limit = parseLimit(req, 100);
 
+  const timezone = getEnv('VF_TIMEZONE');
+
   const queryBase: Omit<VoiceflowUsageQuery, 'projectID'> = {
     startTime,
     endTime,
@@ -152,6 +154,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       startTime,
       endTime,
     },
+    timezone,
     limit,
     results: aggregated,
   });

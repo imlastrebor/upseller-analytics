@@ -27,7 +27,7 @@ Set these in Vercel (Project Settings → Environment Variables) and in your loc
 | `VF_API_KEY` | Voiceflow analytics API token. |
 | `VF_PROJECT_IDS` | Comma-separated Voiceflow project IDs. |
 | `VF_ENVIRONMENT_ID` | Environment ID to query (optional if you fetch across all environments). |
-| `TZ` | Timezone identifier such as `Europe/Helsinki` so cron windows align with your reporting timezone. |
+| `VF_TIMEZONE` | Timezone identifier such as `Europe/Helsinki` (optional, used for metadata/logging). |
 
 ## Endpoints
 - `GET /api/vf/usage`  
@@ -38,7 +38,7 @@ Set these in Vercel (Project Settings → Environment Variables) and in your loc
 Both endpoints return the raw Voiceflow response alongside metadata about the run.
 
 ## Scheduling
-`vercel.json` schedules `/api/cron/vf-usage` daily at 03:00 (respecting the configured `TZ`). Adjust the cron expression if you need a different cadence.
+`vercel.json` schedules `/api/cron/vf-usage` daily at 03:00 UTC. If you need a different cadence for your local timezone, adjust the cron expression accordingly and optionally set `VF_TIMEZONE` for clarity in responses/logging.
 
 ## Next Steps
 - Add persistence (e.g., Supabase) and call it from the cron handler.
