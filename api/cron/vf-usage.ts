@@ -7,18 +7,29 @@ import {
   type VoiceflowMetric,
   type VoiceflowUsageQuery,
 } from '../../lib/voiceflow.js';
+import {
+  listActiveTenantProjects,
+  type TenantRecord,
+  type VoiceflowCredentialRecord,
+  type VoiceflowProjectRecord,
+} from '../../lib/tenants.js';
+import { decryptSecret } from '../../lib/crypto.js';
 
 type AggregatedResult =
   | {
       status: 'fulfilled';
+      tenant: Pick<TenantRecord, 'id' | 'slug' | 'name'>;
       projectID: string;
       metric: VoiceflowMetric;
+      environmentID: string | null;
       result: Record<string, unknown>;
     }
   | {
       status: 'rejected';
+      tenant: Pick<TenantRecord, 'id' | 'slug' | 'name'>;
       projectID: string;
       metric: VoiceflowMetric;
+      environmentID: string | null;
       error: {
         message: string;
         detail?: unknown;
@@ -89,32 +100,55 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
-  const apiKey = getEnv('VF_API_KEY');
-  if (!apiKey) {
-    return res.status(500).json({ error: 'Missing VF_API_KEY environment variable.' });
+  let tenantProjects;
+  try {
+    tenantProjects = await listActiveTenantProjects();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return res.status(500).json({ error: `Failed to load tenant projects: ${message}` });
   }
 
-  const projectIdsEnv = getEnv('VF_PROJECT_IDS');
-  let projects = projectIdsEnv ? parseCommaSeparated(projectIdsEnv) : [];
+  if (tenantProjects.length === 0) {
+    return res.status(500).json({
+      error: 'No active tenant projects configured in Supabase.',
+    });
+  }
 
+  let tenantFilters: string[] | undefined;
+  if (typeof req.query.tenant === 'string' && req.query.tenant.trim().length > 0) {
+    tenantFilters = [req.query.tenant.trim()];
+  } else if (typeof req.query.tenants === 'string' && req.query.tenants.trim().length > 0) {
+    tenantFilters = parseCommaSeparated(req.query.tenants);
+  }
+
+  if (tenantFilters) {
+    tenantProjects = tenantProjects.filter((entry) =>
+      tenantFilters!.includes(entry.tenant.slug),
+    );
+  }
+
+  let projectFilters: string[] | undefined;
   if (typeof req.query.projectID === 'string' && req.query.projectID.trim().length > 0) {
-    projects = [req.query.projectID.trim()];
-  } else {
-    const multiParam =
-      (typeof req.query.projectIDs === 'string' && req.query.projectIDs) ||
-      (typeof req.query.projectIds === 'string' && req.query.projectIds);
-    if (multiParam && multiParam.trim().length > 0) {
-      projects = parseCommaSeparated(multiParam);
-    }
+    projectFilters = [req.query.projectID.trim()];
+  } else if (typeof req.query.projectIDs === 'string' && req.query.projectIDs.trim().length > 0) {
+    projectFilters = parseCommaSeparated(req.query.projectIDs);
   }
 
-  if (projects.length === 0) {
-    return res
-      .status(500)
-      .json({ error: 'VF_PROJECT_IDS is not configured or contains no project identifiers.' });
+  if (projectFilters) {
+    tenantProjects = tenantProjects.filter((entry) =>
+      projectFilters!.includes(entry.project.vf_project_id),
+    );
   }
 
-  const environmentID = getEnv('VF_ENVIRONMENT_ID');
+  if (tenantProjects.length === 0) {
+    return res.status(404).json({
+      error: 'No matching tenant projects found for the provided filters.',
+      filters: {
+        tenants: tenantFilters,
+        projects: projectFilters,
+      },
+    });
+  }
 
   let metrics: VoiceflowMetric[] = [...VOICEFLOW_METRICS];
   try {
@@ -147,35 +181,62 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const timezone = getEnv('VF_TIMEZONE');
 
-  const queryBase: Omit<VoiceflowUsageQuery, 'projectID' | 'metric'> = {
-    startTime,
-    endTime,
-    limit,
-    ...(environmentID ? { environmentID } : {}),
+  const environmentOverride =
+    (typeof req.query.environmentID === 'string' && req.query.environmentID.trim()) ||
+    getEnv('VF_ENVIRONMENT_ID');
+
+  type CollectionTask = {
+    tenant: TenantRecord;
+    credentials: VoiceflowCredentialRecord;
+    project: VoiceflowProjectRecord;
+    metric: VoiceflowMetric;
+    environmentID: string | null;
   };
 
-  const tasks = projects.flatMap((projectID) =>
-    metrics.map((metric) => ({ projectID, metric })),
+  const tasks: CollectionTask[] = tenantProjects.flatMap((entry) =>
+    metrics.map((metric) => ({
+      tenant: entry.tenant,
+      credentials: entry.credentials,
+      project: entry.project,
+      metric,
+      environmentID: environmentOverride ?? entry.credentials.environment_id ?? null,
+    })),
   );
 
   const results = await Promise.allSettled(
-    tasks.map(async ({ projectID, metric }) => {
-      const voiceflowResponse = await queryVoiceflowUsage(
-        { ...queryBase, projectID, metric },
-        apiKey,
-      );
-      return { projectID, metric, voiceflowResponse };
+    tasks.map(async (task) => {
+      const apiKey = decryptSecret(task.credentials.api_key_encrypted);
+
+      const usageQuery: VoiceflowUsageQuery = {
+        projectID: task.project.vf_project_id,
+        startTime,
+        endTime,
+        limit,
+        metric: task.metric,
+        ...(task.environmentID ? { environmentID: task.environmentID } : {}),
+      };
+
+      const voiceflowResponse = await queryVoiceflowUsage(usageQuery, apiKey);
+      return { task, voiceflowResponse };
     }),
   );
 
   const aggregated: AggregatedResult[] = results.map((entry, index) => {
-    const { projectID, metric } = tasks[index];
+    const task = tasks[index];
+    const tenantInfo = {
+      id: task.tenant.id,
+      slug: task.tenant.slug,
+      name: task.tenant.name,
+    };
+    const environment = task.environmentID ?? null;
 
     if (entry.status === 'fulfilled') {
       return {
         status: 'fulfilled',
-        projectID,
-        metric,
+        tenant: tenantInfo,
+        projectID: task.project.vf_project_id,
+        metric: task.metric,
+        environmentID: environment,
         result: entry.value.voiceflowResponse as Record<string, unknown>,
       };
     }
@@ -184,8 +245,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (reason instanceof VoiceflowApiError) {
       return {
         status: 'rejected',
-        projectID,
-        metric,
+        tenant: tenantInfo,
+        projectID: task.project.vf_project_id,
+        metric: task.metric,
+        environmentID: environment,
         error: {
           message: reason.message,
           detail: reason.detail,
@@ -196,8 +259,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return {
       status: 'rejected',
-      projectID,
-      metric,
+      tenant: tenantInfo,
+      projectID: task.project.vf_project_id,
+      metric: task.metric,
+      environmentID: environment,
       error: {
         message: reason instanceof Error ? reason.message : 'Unknown error',
       },
@@ -205,10 +270,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   });
 
   const succeeded = aggregated.filter((item) => item.status === 'fulfilled').length;
+  const tenantCount = new Set(tasks.map((task) => task.tenant.id)).size;
+  const projectCount = new Set(
+    tasks.map((task) => `${task.tenant.id}:${task.project.vf_project_id}`),
+  ).size;
 
   return res.status(200).json({
     ranAt: new Date().toISOString(),
-    projectCount: projects.length,
+    tenantCount,
+    projectCount,
     succeededCount: succeeded,
     window: {
       startTime,
@@ -217,6 +287,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     timezone,
     limit,
     metrics,
+    environment: environmentOverride ?? null,
     results: aggregated,
   });
 }

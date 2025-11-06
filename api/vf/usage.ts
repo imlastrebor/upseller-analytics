@@ -7,6 +7,8 @@ import {
   type VoiceflowMetric,
   type VoiceflowUsageQuery,
 } from '../../lib/voiceflow.js';
+import { fetchTenantConfig } from '../../lib/tenants.js';
+import { decryptSecret } from '../../lib/crypto.js';
 
 type UsageRequestParams = VoiceflowUsageQuery;
 
@@ -29,7 +31,7 @@ function parseMetric(value: unknown): VoiceflowMetric {
   );
 }
 
-function parseRequestParams(req: VercelRequest): UsageRequestParams {
+function parseRequestParams(req: VercelRequest, defaultProjectID?: string): UsageRequestParams {
   const method = req.method?.toUpperCase();
 
   const source: Record<string, unknown> =
@@ -39,10 +41,10 @@ function parseRequestParams(req: VercelRequest): UsageRequestParams {
 
   const projectID =
     (typeof source.projectID === 'string' && source.projectID.trim()) ||
-    getEnv('VF_PROJECT_IDS')?.split(',')[0]?.trim();
+    defaultProjectID;
 
   if (!projectID) {
-    throw new Error('Missing projectID parameter and VF_PROJECT_IDS fallback.');
+    throw new Error('Missing projectID parameter and tenant default project fallback.');
   }
 
   const now = new Date();
@@ -87,26 +89,42 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
-  const apiKey = getEnv('VF_API_KEY');
-  if (!apiKey) {
-    return res.status(500).json({ error: 'Missing VF_API_KEY environment variable.' });
+  const tenantSlug =
+    (typeof req.query.tenant === 'string' && req.query.tenant.trim()) || getEnv('DEFAULT_TENANT');
+
+  if (!tenantSlug) {
+    return res.status(400).json({
+      error: 'Missing tenant parameter or DEFAULT_TENANT fallback.',
+    });
+  }
+
+  const tenantConfig = await fetchTenantConfig(tenantSlug);
+
+  if (!tenantConfig) {
+    return res.status(404).json({
+      error: `Tenant not found or missing active credentials/projects for slug: ${tenantSlug}`,
+    });
   }
 
   let params: UsageRequestParams;
   try {
-    params = parseRequestParams(req);
+    const defaultProjectID =
+      tenantConfig.projects.length > 0 ? tenantConfig.projects[0].vf_project_id : undefined;
+    params = parseRequestParams(req, defaultProjectID);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Invalid request parameters';
     return res.status(400).json({ error: message });
   }
 
   const environmentID = params.environmentID;
+  const apiKey = decryptSecret(tenantConfig.credentials.api_key_encrypted);
 
   try {
     const result = await queryVoiceflowUsage(params, apiKey);
     return res.status(200).json({
       queriedAt: new Date().toISOString(),
       parameters: {
+        tenant: tenantSlug,
         projectID: params.projectID,
         startTime: params.startTime,
         endTime: params.endTime,

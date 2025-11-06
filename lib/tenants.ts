@@ -29,6 +29,12 @@ export type TenantConfig = {
   projects: VoiceflowProjectRecord[];
 };
 
+type LoadTenantConfigResponse = {
+  tenant: TenantRecord;
+  credentials: VoiceflowCredentialRecord | null;
+  projects: VoiceflowProjectRecord[] | null;
+} | null;
+
 /**
  * Fetch a tenant configuration bundle including active credentials and projects.
  * The API key is stored encrypted; decryption must be implemented before use.
@@ -36,57 +42,25 @@ export type TenantConfig = {
 export async function fetchTenantConfig(slug: string): Promise<TenantConfig | null> {
   const supabase = getSupabaseServiceClient();
 
-  const { data, error } = await supabase
-    .from('tenants')
-    .select(
-      `
-      id,
-      slug,
-      name,
-      vf_credentials!inner (
-        id,
-        tenant_id,
-        api_key_encrypted,
-        environment_id,
-        active,
-        rotated_at
-      ),
-      vf_projects!inner (
-        id,
-        tenant_id,
-        vf_project_id,
-        display_name,
-        active
-      )
-    `,
-    )
-    .eq('slug', slug)
-    .eq('vf_credentials.active', true)
-    .eq('vf_projects.active', true)
-    .maybeSingle();
+  const { data, error } = await supabase.rpc('load_tenant_config', {
+    p_slug: slug,
+  });
 
   if (error) {
     throw new Error(`Failed to load tenant configuration: ${error.message}`);
   }
 
-  if (!data) {
+  const result = data as LoadTenantConfigResponse;
+
+  if (!result || !result.credentials || !result.projects || result.projects.length === 0) {
     return null;
   }
 
-  const tenant: TenantRecord = {
-    id: data.id as string,
-    slug: data.slug as string,
-    name: data.name as string,
+  return {
+    tenant: result.tenant,
+    credentials: result.credentials,
+    projects: result.projects,
   };
-
-  const credentials = (data.vf_credentials as VoiceflowCredentialRecord[])?.[0];
-  if (!credentials) {
-    return null;
-  }
-
-  const projects = (data.vf_projects ?? []) as VoiceflowProjectRecord[];
-
-  return { tenant, credentials, projects };
 }
 
 export async function listActiveTenantProjects(): Promise<
@@ -129,8 +103,17 @@ export async function listActiveTenantProjects(): Promise<
     throw new Error(`Failed to list tenant projects: ${error.message}`);
   }
 
-  return (data ?? [])
-    .filter((row) => row.vf_credentials?.active)
+  const rows = (data ?? []) as Array<Record<string, any>>;
+
+  return rows
+    .filter(
+      (row) =>
+        row.active &&
+        row.tenants &&
+        row.tenants.id &&
+        row.vf_credentials &&
+        row.vf_credentials.active,
+    )
     .map((row) => ({
       tenant: {
         id: row.tenants.id as string,

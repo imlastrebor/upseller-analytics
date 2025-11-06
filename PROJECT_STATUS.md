@@ -26,6 +26,7 @@ lib/
   voiceflow.ts         # Voiceflow API client + typed error
   supabase.ts          # Supabase service client factory
   tenants.ts           # Tenant/project credential loaders (requires decryption logic)
+  crypto.ts            # Temporary decrypt helper (strip 'encrypted:' prefix)
 README.md              # Setup & usage instructions
 PROJECT_STATUS.md      # This status brief
 vercel.json            # Cron schedule config (03:00 UTC)
@@ -34,12 +35,15 @@ tsconfig.json          # NodeNext ESM configuration
 .gitignore
 supabase/
   schema.sql           # Bootstrap SQL for tenants, credentials, usage, pulls
+  functions/
+    load_tenant_config.sql # RPC helper to fetch tenant + active credentials/projects
 ```
 
 ## 3. Runtime Flow
 1. **Manual endpoint (`/api/vf/usage`)**
    - Accepts GET/POST.
-   - Resolves `projectID` from query/body or first entry in `VF_PROJECT_IDS`.
+   - Requires a tenant slug (`tenant` query param or `DEFAULT_TENANT` env) to load config from Supabase via `load_tenant_config`.
+   - Resolves `projectID` from query/body or first active project for the tenant.
    - Accepts `metric` parameter (defaults to `interactions`) covering `interactions`, `top_intents`, `unique_users`, `credit_usage`, `function_usage`, `api_calls`, `kb_documents`, `integrations`.
    - Builds Voiceflow request with optional `startTime`, `endTime`, `limit`, `cursor`, `environmentID`.
    - Uses `queryVoiceflowUsage` (lib/voiceflow.ts) to call `https://analytics-api.voiceflow.com/v2/query/usage`.
@@ -48,7 +52,7 @@ supabase/
 
 2. **Cron endpoint (`/api/cron/vf-usage`)**
    - Accepts GET/POST.
-   - Reads `VF_PROJECT_IDS` (comma-separated) and optional overrides (`projectID`, `projectIDs`, `startTime`, `endTime`, `limit`).
+   - Loads active tenant/project pairs from Supabase (optional filters: `tenant`, `tenants`, `projectID`, `projectIDs`).
    - Determines metrics from query (`metric`/`metrics`), `VF_METRICS`, or defaults to the full supported set.
    - Default window: previous full day (00:00–00:00 UTC). `VF_TIMEZONE` is returned for contextual logging only.
    - For each project/metric pair, calls Voiceflow via the shared helper.
@@ -62,11 +66,10 @@ supabase/
 ## 4. Environment Variables
 | Name | Required | Purpose |
 | ---- | -------- | ------- |
-| `VF_API_KEY` | ✅ | Voiceflow analytics API token (currently shared across projects). |
-| `VF_PROJECT_IDS` | ✅ | Comma-separated project IDs for the cron collector. |
 | `VF_ENVIRONMENT_ID` | ➖ | Optional Voiceflow environment filter (per project). |
 | `VF_TIMEZONE` | ➖ | Informational timezone string, echoed in cron responses. |
 | `VF_METRICS` | ➖ | Optional comma-separated list of metrics the cron collector should request. Defaults to all supported metrics. |
+| `DEFAULT_TENANT` | ✅ | Fallback tenant slug when manual endpoint `tenant` parameter is omitted. |
 | `SUPABASE_URL` | ✅ | Supabase project base URL. |
 | `SUPABASE_SERVICE_ROLE_KEY` | ✅ | Server-side key for authenticated inserts/updates (never exposed to clients). |
 | *(Vercel internal)* `VERCEL_OIDC_TOKEN` | auto | Populated during `vercel env pull`; not used explicitly. |
@@ -83,25 +86,23 @@ Local development uses `.env.local`. Vercel holds the same vars per environment;
   - Cron: `http://localhost:3000/api/cron/vf-usage`
   - Cron with overrides: `...?projectID=<id>&startTime=...&endTime=...`
 
-## 6. Multi-Client Credential Strategy (Open)
-Current implementation assumes a single `VF_API_KEY` shared across all project IDs. For client-specific credentials:
-1. **Simpler (duplicate deployment):** spin up a separate Vercel project per client, each with its own secrets.
-2. **Single deployment with tenant map (requires refactor):**
-   - Introduce a `VF_CLIENTS` JSON env var, e.g. `[{"id":"PKS","apiKey":"...","projectIds":["..."]}, ...]`.
-   - Update `/api/vf/usage` to accept `client`/`tenant` parameter and select credentials accordingly.
-   - Update `/api/cron/vf-usage` to iterate per client, running all of their project IDs.
-   - Adjust README, `.env.local`, and testing instructions.
-
-Decision pending stakeholder preferences.
+## 6. Multi-Client Credential Strategy (In Progress)
+- ✅ Tenants, credentials, and projects now live in Supabase with a placeholder decrypt helper (`lib/crypto.ts` strips `encrypted:`).
+- ✅ Manual endpoint and cron job load active credentials/projects per tenant.
+- 🔒 Action items:
+  1. Replace placeholder decryptor with real encryption/KMS integration (e.g., Supabase Vault, AWS KMS).
+  2. Support credential rotation history (already modeled via `rotated_at`; need tooling).
+  3. Add per-tenant overrides for Voiceflow environment IDs if they differ by project.
+  4. Expose tenant management tooling (CLI or admin UI) to add/update credentials safely.
 
 ## 7. Upcoming Work (Roadmap Alignment)
 1. **Phase 1 wrap-up**
-   - Decide on credential strategy for additional clients.
-   - Run `supabase/schema.sql`, seed initial tenant/project data, and wire ingestion to Supabase.
+   - Persist Voiceflow usage responses into Supabase tables (`vf_usage`, `vf_pulls`).
+   - Harden credential management (real decryption/KMS, rotation tooling, admin UI).
    - Add structured logging/monitoring for cron execution (e.g., Vercel log drains).
-2. **Phase 2**
-   - Integrate Supabase (EU) and persist cron results (table schema TBD).
-   - Ensure Row Level Security per client.
+2. **Phase 2 – Data Storage**
+   - Finalize and test Row Level Security policies for tenant-facing access.
+   - Build backfill/retry tooling to re-run failed pulls and maintain historical completeness.
 3. **Phase 3**
    - Connect Metabase to Supabase; define dashboards (usage, intents, KPIs).
 4. **Phase 4**
@@ -113,6 +114,7 @@ Decision pending stakeholder preferences.
 {
   "queriedAt": "2025-11-06T08:07:10.749Z",
   "parameters": {
+    "tenant": "pks",
     "projectID": "68c10791f2d91b29c174a193",
     "startTime": "2025-11-05T08:07:10.448Z",
     "endTime": "2025-11-06T08:07:10.448Z",
@@ -140,6 +142,7 @@ Decision pending stakeholder preferences.
 ```json
 {
   "ranAt": "2025-11-06T08:08:40.006Z",
+  "tenantCount": 1,
   "projectCount": 1,
   "succeededCount": 1,
   "window": {
@@ -148,6 +151,7 @@ Decision pending stakeholder preferences.
   },
   "timezone": "Europe/Helsinki",
   "limit": 100,
+  "environment": null,
   "metrics": [
     "interactions",
     "top_intents",
@@ -161,8 +165,14 @@ Decision pending stakeholder preferences.
   "results": [
     {
       "status": "fulfilled",
+      "tenant": {
+        "id": "93d8e4d7-6221-40e2-9eb1-b5403da84f38",
+        "slug": "pks",
+        "name": "PKS Client"
+      },
       "projectID": "68c10791f2d91b29c174a193",
       "metric": "interactions",
+      "environmentID": null,
       "result": {
         "result": {
           "cursor": 150946814,

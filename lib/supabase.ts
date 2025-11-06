@@ -1,13 +1,9 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { getEnv } from './env.js';
 
-type Json = Record<string, unknown> | null | string | number | boolean | Json[];
+let cachedClient: SupabaseClient | undefined;
 
-export type ServiceSupabaseClient = SupabaseClient<Json, 'public', any>;
-
-let cachedClient: ServiceSupabaseClient | undefined;
-
-export function getSupabaseServiceClient(): ServiceSupabaseClient {
+export function getSupabaseServiceClient(): SupabaseClient {
   if (!cachedClient) {
     const url = getEnv('SUPABASE_URL');
     const key = getEnv('SUPABASE_SERVICE_ROLE_KEY');
