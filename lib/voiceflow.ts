@@ -1,10 +1,24 @@
 const VOICEFLOW_USAGE_ENDPOINT = 'https://analytics-api.voiceflow.com/v2/query/usage';
 
+export const VOICEFLOW_METRICS = [
+  'interactions',
+  'top_intents',
+  'unique_users',
+  'credit_usage',
+  'function_usage',
+  'api_calls',
+  'kb_documents',
+  'integrations',
+] as const;
+
+export type VoiceflowMetric = (typeof VOICEFLOW_METRICS)[number];
+
 export type VoiceflowUsageQuery = {
   projectID: string;
   startTime: string;
   endTime: string;
   limit: number;
+  metric: VoiceflowMetric;
   environmentID?: string;
   cursor?: number | string;
 };
@@ -28,7 +42,7 @@ export async function queryVoiceflowUsage(
 ): Promise<VoiceflowUsageApiResponse> {
   const payload = {
     data: {
-      name: 'interactions',
+      name: params.metric,
       filter: {
         projectID: params.projectID,
         startTime: params.startTime,

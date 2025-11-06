@@ -3,6 +3,8 @@ import { getEnv } from '../../lib/env.js';
 import {
   queryVoiceflowUsage,
   VoiceflowApiError,
+  VOICEFLOW_METRICS,
+  type VoiceflowMetric,
   type VoiceflowUsageQuery,
 } from '../../lib/voiceflow.js';
 
@@ -10,11 +12,13 @@ type AggregatedResult =
   | {
       status: 'fulfilled';
       projectID: string;
+      metric: VoiceflowMetric;
       result: Record<string, unknown>;
     }
   | {
       status: 'rejected';
       projectID: string;
+      metric: VoiceflowMetric;
       error: {
         message: string;
         detail?: unknown;
@@ -27,6 +31,30 @@ function parseCommaSeparated(value: string): string[] {
     .split(',')
     .map((id) => id.trim())
     .filter(Boolean);
+}
+
+function parseMetricsInput(input: string[]): VoiceflowMetric[] {
+  const normalized = input
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .map((item) => item.toLowerCase());
+
+  if (normalized.length === 0) {
+    return [];
+  }
+
+  const unique = Array.from(new Set(normalized));
+  const invalid = unique.filter(
+    (metric) => !VOICEFLOW_METRICS.includes(metric as VoiceflowMetric),
+  );
+
+  if (invalid.length > 0) {
+    throw new Error(
+      `Invalid metrics: ${invalid.join(', ')}. Supported metrics: ${VOICEFLOW_METRICS.join(', ')}`,
+    );
+  }
+
+  return unique as VoiceflowMetric[];
 }
 
 function computeDefaultWindow() {
@@ -88,6 +116,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const environmentID = getEnv('VF_ENVIRONMENT_ID');
 
+  let metrics: VoiceflowMetric[] = [...VOICEFLOW_METRICS];
+  try {
+    if (typeof req.query.metric === 'string') {
+      metrics = parseMetricsInput([req.query.metric]);
+    } else if (typeof req.query.metrics === 'string') {
+      metrics = parseMetricsInput(parseCommaSeparated(req.query.metrics));
+    } else if (typeof req.query.METRICS === 'string') {
+      metrics = parseMetricsInput(parseCommaSeparated(req.query.METRICS));
+    } else {
+      const metricsEnv = getEnv('VF_METRICS');
+      if (metricsEnv) {
+        metrics = parseMetricsInput(parseCommaSeparated(metricsEnv));
+        if (metrics.length === 0) {
+          metrics = [...VOICEFLOW_METRICS];
+        }
+      }
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Invalid metrics configuration';
+    return res.status(400).json({ error: message });
+  }
+
   const sourceWindow = computeDefaultWindow();
   const startTime =
     (typeof req.query.startTime === 'string' && req.query.startTime) || sourceWindow.startTime;
@@ -97,27 +147,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const timezone = getEnv('VF_TIMEZONE');
 
-  const queryBase: Omit<VoiceflowUsageQuery, 'projectID'> = {
+  const queryBase: Omit<VoiceflowUsageQuery, 'projectID' | 'metric'> = {
     startTime,
     endTime,
     limit,
     ...(environmentID ? { environmentID } : {}),
   };
 
+  const tasks = projects.flatMap((projectID) =>
+    metrics.map((metric) => ({ projectID, metric })),
+  );
+
   const results = await Promise.allSettled(
-    projects.map(async (projectID) => {
-      const voiceflowResponse = await queryVoiceflowUsage({ ...queryBase, projectID }, apiKey);
-      return { projectID, voiceflowResponse };
+    tasks.map(async ({ projectID, metric }) => {
+      const voiceflowResponse = await queryVoiceflowUsage(
+        { ...queryBase, projectID, metric },
+        apiKey,
+      );
+      return { projectID, metric, voiceflowResponse };
     }),
   );
 
   const aggregated: AggregatedResult[] = results.map((entry, index) => {
-    const projectID = projects[index];
+    const { projectID, metric } = tasks[index];
 
     if (entry.status === 'fulfilled') {
       return {
         status: 'fulfilled',
         projectID,
+        metric,
         result: entry.value.voiceflowResponse as Record<string, unknown>,
       };
     }
@@ -127,6 +185,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return {
         status: 'rejected',
         projectID,
+        metric,
         error: {
           message: reason.message,
           detail: reason.detail,
@@ -138,6 +197,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return {
       status: 'rejected',
       projectID,
+      metric,
       error: {
         message: reason instanceof Error ? reason.message : 'Unknown error',
       },
@@ -156,6 +216,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     },
     timezone,
     limit,
+    metrics,
     results: aggregated,
   });
 }

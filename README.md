@@ -28,17 +28,18 @@ Set these in Vercel (Project Settings → Environment Variables) and in your loc
 | `VF_PROJECT_IDS` | Comma-separated Voiceflow project IDs. |
 | `VF_ENVIRONMENT_ID` | Environment ID to query (optional if you fetch across all environments). |
 | `VF_TIMEZONE` | Timezone identifier such as `Europe/Helsinki` (optional, used for metadata/logging). |
+| `VF_METRICS` | Optional comma-separated list of metrics to collect in cron runs. Defaults to all supported metrics. |
 
 ## Endpoints
 - `GET /api/vf/usage`  
-  Query a single project. Optional query params: `projectID`, `startTime`, `endTime`, `limit`, `cursor`, `environmentID`.
+  Query a single project. Optional query params: `projectID`, `startTime`, `endTime`, `limit`, `cursor`, `environmentID`, `metric` (defaults to `interactions`).
 - `GET /api/cron/vf-usage`  
-  Fetches usage for all projects in `VF_PROJECT_IDS`. Optional overrides: `projectID`, `projectIDs`, `startTime`, `endTime`, `limit`.
+  Fetches usage for all projects in `VF_PROJECT_IDS` and metrics specified via `VF_METRICS` (or all supported metrics by default). Optional overrides: `projectID`, `projectIDs`, `startTime`, `endTime`, `limit`, `metric`/`metrics`.
 
 Both endpoints return the raw Voiceflow response alongside metadata about the run.
 
 ## Scheduling
-`vercel.json` schedules `/api/cron/vf-usage` daily at 03:00 UTC. If you need a different cadence for your local timezone, adjust the cron expression accordingly and optionally set `VF_TIMEZONE` for clarity in responses/logging.
+`vercel.json` schedules `/api/cron/vf-usage` daily at 03:00 UTC. Each run iterates over every configured project and Voiceflow metric. Adjust the cron expression (and optionally `VF_METRICS`) if you need a different cadence or narrower scope, and use `VF_TIMEZONE` for clarity in responses/logging.
 
 ## Next Steps
 - Add persistence (e.g., Supabase) and call it from the cron handler.

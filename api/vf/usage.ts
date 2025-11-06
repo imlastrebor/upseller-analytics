@@ -3,10 +3,31 @@ import { getEnv } from '../../lib/env.js';
 import {
   queryVoiceflowUsage,
   VoiceflowApiError,
+  VOICEFLOW_METRICS,
+  type VoiceflowMetric,
   type VoiceflowUsageQuery,
 } from '../../lib/voiceflow.js';
 
 type UsageRequestParams = VoiceflowUsageQuery;
+
+const DEFAULT_METRIC: VoiceflowMetric = 'interactions';
+
+function parseMetric(value: unknown): VoiceflowMetric {
+  if (value === undefined || value === null || value === '') {
+    return DEFAULT_METRIC;
+  }
+
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    if (VOICEFLOW_METRICS.includes(normalized as VoiceflowMetric)) {
+      return normalized as VoiceflowMetric;
+    }
+  }
+
+  throw new Error(
+    `Invalid metric. Supported metrics: ${VOICEFLOW_METRICS.join(', ')}`,
+  );
+}
 
 function parseRequestParams(req: VercelRequest): UsageRequestParams {
   const method = req.method?.toUpperCase();
@@ -52,7 +73,9 @@ function parseRequestParams(req: VercelRequest): UsageRequestParams {
     (typeof source.environmentID === 'string' && source.environmentID) ||
     getEnv('VF_ENVIRONMENT_ID');
 
-  return { projectID, startTime, endTime, limit, cursor, environmentID };
+  const metric = parseMetric(source.metric);
+
+  return { projectID, startTime, endTime, limit, cursor, environmentID, metric };
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -88,6 +111,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         startTime: params.startTime,
         endTime: params.endTime,
         limit: params.limit,
+        metric: params.metric,
         ...(environmentID ? { environmentID } : {}),
         ...(params.cursor ? { cursor: params.cursor } : {}),
       },
