@@ -32,7 +32,7 @@ lib/
   voiceflow.ts        # Shared Voiceflow client + typed error + metrics list
   supabase.ts         # Service-role Supabase client factory
   tenants.ts          # Tenant/credential/project loaders (RPC + aggregation helper)
-  events.ts           # Event token lookup + inserts to events_raw
+  events.ts           # Event token lookup + inserts to events_raw + tenant-origin fetch
   crypto.ts           # Temporary decrypt helper (strip 'encrypted:' prefix)
 supabase/
   schema.sql          # Tables + indexes + placeholder policies
@@ -69,6 +69,7 @@ Key flows:
   - Requires bearer/`x-event-token` header mapped via `event_write_tokens`.
   - Accepts `{ events: [...] }` payload, validates UUIDs/dates, normalizes properties.
   - Upserts into `events_raw` on `event_id` to keep ingestion idempotent.
+  - Applies tenant-specific CORS rules via `tenant_domains` so only approved origins can POST.
 
 ---
 

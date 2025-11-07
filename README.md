@@ -35,6 +35,7 @@ Set these in Vercel (Project Settings → Environment Variables) and in your loc
 | `DEFAULT_TENANT` | Tenant slug used by manual endpoint when `tenant` query param is omitted. |
 | `SUPABASE_URL` | Supabase project URL (e.g. `https://...supabase.co`). |
 | `SUPABASE_SERVICE_ROLE_KEY` | Service role key used server-side for database access. Keep this secret; never expose it client-side. |
+| `tenant_domains` table | Stores per-tenant allowed origins for `/api/events` CORS. Add rows via Supabase when onboarding new sites. |
 
 ## Endpoints
 - `GET /api/vf/usage`  

@@ -2,6 +2,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import {
   getTenantForWriteToken,
   insertEvents,
+  getAllowedOriginsForTenant,
+  isOriginGloballyAllowed,
   type IncomingEventPayload,
   type EventInsertRow,
 } from '../lib/events.js';
@@ -75,9 +77,59 @@ function sanitizeProperties(value: unknown): Record<string, unknown> {
   return {};
 }
 
+type CorsHeaders = Record<string, string>;
+
+function buildCorsHeaders(origin: string | undefined, allowedOrigins: Set<string>): CorsHeaders | null {
+  if (!origin || !allowedOrigins.has(origin)) {
+    return null;
+  }
+
+  return {
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Methods': 'OPTIONS, POST',
+    'Access-Control-Allow-Headers': 'Authorization, Content-Type, X-Event-Token',
+  };
+}
+
+function applyCorsHeaders(res: VercelResponse, headers: CorsHeaders | null | undefined) {
+  if (!headers) {
+    return;
+  }
+  Object.entries(headers).forEach(([key, value]) => {
+    res.setHeader(key, value);
+  });
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  const origin = typeof req.headers.origin === 'string' ? req.headers.origin : undefined;
+
+  if (req.method === 'OPTIONS') {
+    if (!origin) {
+      return res.status(400).end();
+    }
+
+    let allowed = false;
+    try {
+      allowed = await isOriginGloballyAllowed(origin);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to validate origin';
+      return res.status(500).json({ error: message });
+    }
+
+    if (!allowed) {
+      return res.status(403).json({ error: 'Origin not allowed.' });
+    }
+
+    const headers = buildCorsHeaders(origin, new Set([origin]));
+    if (!headers) {
+      return res.status(500).json({ error: 'Failed to build CORS headers.' });
+    }
+    applyCorsHeaders(res, headers);
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
+    res.setHeader('Allow', 'OPTIONS, POST');
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
@@ -98,11 +150,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(403).json({ error: 'Invalid or inactive event write token.' });
   }
 
+  let allowedOrigins: Set<string>;
+  try {
+    allowedOrigins = await getAllowedOriginsForTenant(tenantWithToken.tenant.id);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to load tenant origins';
+    return res.status(500).json({ error: message });
+  }
+
+  const corsHeaders = buildCorsHeaders(origin, allowedOrigins);
+
+  if (!corsHeaders) {
+    return res.status(403).json({ error: 'Origin not allowed for this tenant.' });
+  }
+
   const body = parseBody(req);
   const events = normalizeEvents(body);
 
   if (!events || events.length === 0) {
-    return res.status(400).json({ error: 'Body must include an "events" array with at least one event.' });
+    applyCorsHeaders(res, corsHeaders);
+    return res
+      .status(400)
+      .json({ error: 'Body must include an "events" array with at least one event.' });
   }
 
   const acceptedRows: EventInsertRow[] = [];
@@ -157,16 +226,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     await insertEvents(acceptedRows);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to store events';
+    applyCorsHeaders(res, corsHeaders);
     return res.status(500).json({ error: message });
   }
 
-  return res.status(errors.length > 0 ? 207 : 200).json({
-    tenant: {
-      id: tenantWithToken.tenant.id,
-      slug: tenantWithToken.tenant.slug,
-    },
-    accepted: acceptedRows.length,
-    rejected: errors.length,
-    errors,
-  });
+  applyCorsHeaders(res, corsHeaders);
+  return res
+    .status(errors.length > 0 ? 207 : 200)
+    .json({
+      tenant: {
+        id: tenantWithToken.tenant.id,
+        slug: tenantWithToken.tenant.slug,
+      },
+      accepted: acceptedRows.length,
+      rejected: errors.length,
+      errors,
+    });
 }

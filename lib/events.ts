@@ -104,3 +104,42 @@ export async function insertEvents(rows: EventInsertRow[]): Promise<void> {
     throw new Error(`Failed to store events: ${error.message}`);
   }
 }
+
+export async function getAllowedOriginsForTenant(tenantId: string): Promise<Set<string>> {
+  const supabase = getSupabaseServiceClient();
+
+  const { data, error } = await supabase
+    .from('tenant_domains')
+    .select('origin, active')
+    .eq('tenant_id', tenantId)
+    .eq('active', true);
+
+  if (error) {
+    throw new Error(`Failed to load tenant origins: ${error.message}`);
+  }
+
+  const origins = new Set<string>();
+  (data ?? []).forEach((row) => {
+    if (typeof row.origin === 'string' && row.origin.trim().length > 0) {
+      origins.add(row.origin.trim());
+    }
+  });
+
+  return origins;
+}
+
+export async function isOriginGloballyAllowed(origin: string): Promise<boolean> {
+  const supabase = getSupabaseServiceClient();
+  const { data, error } = await supabase
+    .from('tenant_domains')
+    .select('origin')
+    .eq('origin', origin)
+    .eq('active', true)
+    .limit(1);
+
+  if (error) {
+    throw new Error(`Failed to validate origin: ${error.message}`);
+  }
+
+  return (data?.length ?? 0) > 0;
+}

@@ -37,6 +37,7 @@ supabase/
   schema.sql           # Bootstrap SQL for tenants, credentials, usage, pulls
   functions/
     load_tenant_config.sql # RPC helper to fetch tenant + active credentials/projects
+  tables automatically include event_write_tokens, tenant_domains, events_raw
 ```
 
 ## 3. Runtime Flow
@@ -75,6 +76,7 @@ supabase/
 | `DEFAULT_TENANT` | ✅ | Fallback tenant slug when manual endpoint `tenant` parameter is omitted. |
 | `SUPABASE_URL` | ✅ | Supabase project base URL. |
 | `SUPABASE_SERVICE_ROLE_KEY` | ✅ | Server-side key for authenticated inserts/updates (never exposed to clients). |
+| `tenant_domains` table | ✅ | Manage allowed origins per tenant to power `/api/events` CORS logic. |
 | *(Vercel internal)* `VERCEL_OIDC_TOKEN` | auto | Populated during `vercel env pull`; not used explicitly. |
 
 Local development uses `.env.local`. Vercel holds the same vars per environment; redeploy after changes.
