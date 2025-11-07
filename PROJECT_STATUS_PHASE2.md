@@ -12,6 +12,7 @@
   - `supabase/schema.sql` – tables `tenants`, `vf_credentials`, `vf_projects`, `vf_usage`, `vf_pulls` with placeholder service-role RLS policies.
   - `supabase/functions/load_tenant_config.sql` – RPC returning active credential + project bundle per tenant.
 - ✅ First tenant (`pks`) seeded with an encrypted Voiceflow API key (currently using `encrypted:` prefix) and project ID `68c10791f2d91b29c174a193`.
+- ✅ Custom event infrastructure: `event_write_tokens`, `events_raw`, and `/api/events` endpoint accepting batched custom goals per tenant.
 - ✅ Environment variables consolidated: `DEFAULT_TENANT`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, optional `VF_METRICS` and `VF_TIMEZONE`. Legacy `VF_API_KEY`/`VF_PROJECT_IDS` removed.
 - ✅ Documentation updated (`README.md`, `PROJECT_STATUS.md`) with bootstrap steps, env expectations, and testing URLs.
 - 🚫 Usage data is not yet persisted in Supabase (`vf_usage`, `vf_pulls`); cron currently responds with Voiceflow payload only.
@@ -31,6 +32,7 @@ lib/
   voiceflow.ts        # Shared Voiceflow client + typed error + metrics list
   supabase.ts         # Service-role Supabase client factory
   tenants.ts          # Tenant/credential/project loaders (RPC + aggregation helper)
+  events.ts           # Event token lookup + inserts to events_raw
   crypto.ts           # Temporary decrypt helper (strip 'encrypted:' prefix)
 supabase/
   schema.sql          # Tables + indexes + placeholder policies
@@ -63,6 +65,10 @@ Key flows:
   - `lib/supabase.ts` caches a service-role client.
   - `lib/tenants.ts` exposes `fetchTenantConfig` (RPC) and `listActiveTenantProjects`.
   - `lib/crypto.ts` currently strips `encrypted:` prefix (placeholder).
+- **Custom events** (`api/events.ts` + `lib/events.ts`):
+  - Requires bearer/`x-event-token` header mapped via `event_write_tokens`.
+  - Accepts `{ events: [...] }` payload, validates UUIDs/dates, normalizes properties.
+  - Upserts into `events_raw` on `event_id` to keep ingestion idempotent.
 
 ---
 
@@ -107,6 +113,7 @@ VF_TIMEZONE="Europe/Helsinki"
    - Upsert Voiceflow `items` into `vf_usage` with tenant/project/metric metadata.
    - Log each cron execution in `vf_pulls` (status, cursor, window, errors) for observability/retries.
    - Consider deduplication strategy (unique constraints already defined).
+   - Mirror the same rigor for custom events (RLS policies, read-only roles, aggregation views).
 3. **Backfill & retry tooling**
    - Build scripts/functions to re-run missed windows or resume from stored cursors.
 4. **RLS policies**

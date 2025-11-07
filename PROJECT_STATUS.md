@@ -62,6 +62,9 @@ supabase/
 3. **Shared utilities**
    - `lib/env.ts` provides `getEnv(name, { required })` returning `undefined` or throwing if required.
    - `lib/voiceflow.ts` constructs the POST payload, performs fetch with passed API key, and throws `VoiceflowApiError` on non-2xx responses.
+   - `lib/tenants.ts` loads tenant configs (RPC) and enumerates active tenant/project pairs.
+   - `lib/events.ts` validates write tokens and writes custom goal events (`events_raw`).
+   - `lib/crypto.ts` (placeholder) strips the `encrypted:` prefix until real KMS/Vault integration ships.
 
 ## 4. Environment Variables
 | Name | Required | Purpose |
@@ -81,10 +84,11 @@ Local development uses `.env.local`. Vercel holds the same vars per environment;
 - **Type checking:** `npm run typecheck`.
 - **Deploy:** push to GitHub (auto redeploy) or `vercel --prod`.
 - **Testing URLs (examples):**
-  - Manual: `http://localhost:3000/api/vf/usage?projectID=<id>`
-  - Manual with window: `...?startTime=2025-11-05T00:00:00.000Z&endTime=2025-11-06T00:00:00.000Z`
+  - Manual: `http://localhost:3000/api/vf/usage?tenant=pks&projectID=<id>`
+  - Manual with window: `...?tenant=pks&startTime=2025-11-05T00:00:00.000Z&endTime=2025-11-06T00:00:00.000Z`
   - Cron: `http://localhost:3000/api/cron/vf-usage`
-  - Cron with overrides: `...?projectID=<id>&startTime=...&endTime=...`
+  - Cron with overrides: `...?tenant=pks&projectID=<id>&startTime=...&endTime=...`
+  - Custom events: `POST /api/events` with `Authorization: Bearer <event_write_token>` and `{ "events": [ ... ] }` payload
 
 ## 6. Multi-Client Credential Strategy (In Progress)
 - ✅ Tenants, credentials, and projects now live in Supabase with a placeholder decrypt helper (`lib/crypto.ts` strips `encrypted:`).

@@ -76,12 +76,44 @@ comment on table public.vf_pulls is 'Log of Voiceflow collection runs for observ
 create index if not exists vf_pulls_lookup_idx
   on public.vf_pulls (tenant_id, vf_project_id, metric, ran_at desc);
 
+create table if not exists public.event_write_tokens (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.tenants(id) on delete cascade,
+  token text not null,
+  active boolean not null default true,
+  created_at timestamptz not null default now(),
+  unique (tenant_id, token)
+);
+
+comment on table public.event_write_tokens is 'Per-tenant write tokens for custom event ingestion.';
+
+create table if not exists public.events_raw (
+  id uuid primary key default gen_random_uuid(),
+  event_id uuid not null,
+  tenant_id uuid not null references public.tenants(id) on delete cascade,
+  project_id text,
+  event_name text not null,
+  occurred_at timestamptz not null default now(),
+  user_id text,
+  session_id text,
+  properties jsonb not null default '{}'::jsonb,
+  received_at timestamptz not null default now(),
+  unique (event_id)
+);
+
+comment on table public.events_raw is 'Custom goal events emitted by widgets or integrations.';
+
+create index if not exists events_raw_tenant_event_idx
+  on public.events_raw (tenant_id, event_name, occurred_at);
+
 -- RLS scaffolding: enable then tighten policies when auth is attached.
 alter table public.tenants enable row level security;
 alter table public.vf_credentials enable row level security;
 alter table public.vf_projects enable row level security;
 alter table public.vf_usage enable row level security;
 alter table public.vf_pulls enable row level security;
+alter table public.event_write_tokens enable row level security;
+alter table public.events_raw enable row level security;
 
 -- Placeholder policies allowing service_role access; replace with scoped policies once JWT auth is wired.
 drop policy if exists tenants_service_role_full on public.tenants;
@@ -115,6 +147,20 @@ create policy vf_usage_service_role_full
 drop policy if exists vf_pulls_service_role_full on public.vf_pulls;
 create policy vf_pulls_service_role_full
   on public.vf_pulls
+  for all
+  using (auth.role() = 'service_role')
+  with check (auth.role() = 'service_role');
+
+drop policy if exists event_write_tokens_service_role_full on public.event_write_tokens;
+create policy event_write_tokens_service_role_full
+  on public.event_write_tokens
+  for all
+  using (auth.role() = 'service_role')
+  with check (auth.role() = 'service_role');
+
+drop policy if exists events_raw_service_role_full on public.events_raw;
+create policy events_raw_service_role_full
+  on public.events_raw
   for all
   using (auth.role() = 'service_role')
   with check (auth.role() = 'service_role');

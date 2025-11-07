@@ -42,6 +42,8 @@ Set these in Vercel (Project Settings → Environment Variables) and in your loc
   `tenant` (defaults to `DEFAULT_TENANT`), `projectID`, `startTime`, `endTime`, `limit`, `cursor`, `environmentID`, `metric` (defaults to `interactions`).
 - `GET /api/cron/vf-usage`  
   Fetches usage for every active tenant/project stored in Supabase and metrics specified via `VF_METRICS` (or all supported metrics by default). Optional overrides: `tenant`, `tenants`, `projectID`, `projectIDs`, `startTime`, `endTime`, `limit`, `metric`/`metrics`.
+- `POST /api/events`  
+  Custom goal ingestion. Requires an event write token (`Authorization: Bearer <token>` or `x-event-token`). Body accepts either `{ "events": [...] }` or a raw array of events. Each event must include `event_id` (UUID) and `event_name`; optional fields: `occurred_at`, `project_id`, `user_id`, `session_id`, `properties`.
 
 Both endpoints return the raw Voiceflow response alongside metadata about the run.
 
@@ -58,6 +60,27 @@ Both endpoints return the raw Voiceflow response alongside metadata about the ru
   `http://localhost:3000/api/cron/vf-usage`
 - Cron filtered to a tenant/project:  
   `http://localhost:3000/api/cron/vf-usage?tenant=pks&projectID=68c10791f2d91b29c174a193`
+- Custom events (replace token + payload):  
+  ```bash
+  curl -X POST http://localhost:3000/api/events \
+    -H "Authorization: Bearer test_sandbox_write_token_123" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "events": [
+        {
+          "event_id": "1d4c0c6e-3b6c-4f3a-b90e-0b824c3b7d91",
+          "event_name": "widget_seen",
+          "occurred_at": "2025-11-06T12:00:00Z",
+          "properties": { "page": "/pricing" }
+        },
+        {
+          "event_id": "9fb9df46-5d89-4d2d-9b4b-4d8d901bca14",
+          "event_name": "cta_clicked",
+          "properties": { "cta": "Book demo" }
+        }
+      ]
+    }'
+  ```
 
 ## Next Steps
 - Add persistence (e.g., Supabase) and call it from the cron handler.
