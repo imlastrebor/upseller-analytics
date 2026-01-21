@@ -43,12 +43,16 @@ export async function queryVoiceflowUsage(
   const payload = {
     data: {
       name: params.metric,
+      resources: [
+        {
+          projectID: params.projectID,
+          ...(params.environmentID ? { environmentID: params.environmentID } : {}),
+        },
+      ],
       filter: {
-        projectID: params.projectID,
         startTime: params.startTime,
         endTime: params.endTime,
         limit: params.limit,
-        ...(params.environmentID ? { environmentID: params.environmentID } : {}),
       },
       ...(params.cursor ? { cursor: params.cursor } : {}),
     },
