@@ -1,0 +1,1055 @@
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T08:57:51+01:00 INFO metabase.search.models.search-index-metadata Inserted new pending table :search_index__vk1wkxugk28brzzpyz_dc
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T08:57:51+01:00 INFO metabase.search.appdb.index New pending index :search_index__vk1wkxugk28brzzpyz_dc
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T08:57:51+01:00 INFO metabase.search.appdb.index Activating pending index :search_index__vk1wkxugk28brzzpyz_dc
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T08:57:51+01:00 INFO metabase.search.appdb.index Activated pending index :search_index__vk1wkxugk28brzzpyz_dc
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T08:57:51+01:00 INFO metabase.search.appdb.index Dropped 1 stale indexes: [:search_index__n08pii_gaggywi0ac4f0w]
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T08:57:51+01:00 INFO metabase.search.core Done reindexing in 393ms (["table" 12] ["collection" 8] ["card" 6] ["dashboard" 5] ["database" 2])
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:23:00+01:00 INFO metabase.sync.task.sync-databases Starting sync task for Database 4.
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:23:00+01:00 ERROR metabase.driver.util Failed to connect to Database,org.postgresql.util.PSQLException: FATAL: Max client connections reached,	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2734),	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2859),	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:178),	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:344),	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57),	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:277),	at org.postgresql.Driver.makeConnection(Driver.java:448),	at org.postgresql.Driver.connect(Driver.java:298),	at java.sql/java.sql.DriverManager.getConnection(Unknown Source),	at java.sql/java.sql.DriverManager.getConnection(Unknown Source),	at clojure.java.jdbc$get_driver_connection.invokeStatic(jdbc.clj:271),	at clojure.java.jdbc$get_driver_connection.invoke(jdbc.clj:250),	at clojure.java.jdbc$get_connection.invokeStatic(jdbc.clj:411),	at clojure.java.jdbc$get_connection.invoke(jdbc.clj:274),	at clojure.java.jdbc$db_query_with_resultset_STAR_.invokeStatic(jdbc.clj:1111),	at clojure.java.jdbc$db_query_with_resultset_STAR_.invoke(jdbc.clj:1093),	at clojure.java.jdbc$query.invokeStatic(jdbc.clj:1182),	at clojure.java.jdbc$query.invoke(jdbc.clj:1144),	at clojure.java.jdbc$query.invokeStatic(jdbc.clj:1160)
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:23:00+01:00 WARN metabase.sync.task.sync-databases Cannot sync Database Upseller database 2: Max client connections reached.,clojure.lang.ExceptionInfo: Max client connections reached. {:message "Max client connections reached."},	at metabase.driver.util$can_connect_with_details_QMARK_.invokeStatic(util.clj:153),	at metabase.driver.util$can_connect_with_details_QMARK_.doInvoke(util.clj:124),	at clojure.lang.RestFn.invoke(RestFn.java:445),	at metabase.sync.task.sync_databases$sync_and_analyze_database_STAR__BANG_$fn__113775$fn__113776.invoke(sync_databases.clj:85),	at metabase.sync.task.sync_databases$sync_and_analyze_database_STAR__BANG_$fn__113775.invoke(sync_databases.clj:84),	at metabase.sync.task.sync_databases$sync_and_analyze_database_STAR__BANG_.invokeStatic(sync_databases.clj:81),	at metabase.sync.task.sync_databases$sync_and_analyze_database_STAR__BANG_.invoke(sync_databases.clj:74),	at metabase.sync.task.sync_databases$sync_and_analyze_database_BANG_.invokeStatic(sync_databases.clj:113),	at metabase.sync.task.sync_databases$sync_and_analyze_database_BANG_.invoke(sync_databases.clj:101),	at metabase.sync.task.sync_databases.SyncAndAnalyzeDatabase$fn__113806$fn__113807.invoke(sync_databases.clj:118),	at metabase.util.log$with_exception_context_fn.invokeStatic(log.clj:303),	at metabase.util.log$with_exception_context_fn.invoke(log.clj:295),	at metabase.sync.task.sync_databases.SyncAndAnalyzeDatabase$fn__113806.invoke(sync_databases.clj:115),	at metabase.util.log$with_thread_context_fn.invokeStatic(log.clj:85),	at metabase.util.log$with_thread_context_fn.invoke(log.clj:71),	at metabase.sync.task.sync_databases.SyncAndAnalyzeDatabase.execute(sync_databases.clj:115),	at org.quartz.core.JobRunShell.run(JobRunShell.java:202),	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573),Caused by: org.postgresql.util.PSQLException: FATAL: Max client connections reached
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:32:00+01:00 INFO metabase.sync.task.sync-databases Starting sync task for Database 2.
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:32:00+01:00 ERROR metabase.driver.util Failed to connect to Database,org.postgresql.util.PSQLException: FATAL: password authentication failed for user "metabase_readonly",	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:777),	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:234),	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289),	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57),	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:277),	at org.postgresql.Driver.makeConnection(Driver.java:448),	at org.postgresql.Driver.connect(Driver.java:298),	at java.sql/java.sql.DriverManager.getConnection(Unknown Source),	at java.sql/java.sql.DriverManager.getConnection(Unknown Source),	at clojure.java.jdbc$get_driver_connection.invokeStatic(jdbc.clj:271),	at clojure.java.jdbc$get_driver_connection.invoke(jdbc.clj:250),	at clojure.java.jdbc$get_connection.invokeStatic(jdbc.clj:411),	at clojure.java.jdbc$get_connection.invoke(jdbc.clj:274),	at clojure.java.jdbc$db_query_with_resultset_STAR_.invokeStatic(jdbc.clj:1111),	at clojure.java.jdbc$db_query_with_resultset_STAR_.invoke(jdbc.clj:1093),	at clojure.java.jdbc$query.invokeStatic(jdbc.clj:1182),	at clojure.java.jdbc$query.invoke(jdbc.clj:1144),	at clojure.java.jdbc$query.invokeStatic(jdbc.clj:1160),	at clojure.java.jdbc$query.invoke(jdbc.clj:1144)
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:32:00+01:00 WARN metabase.sync.task.sync-databases Cannot sync Database Supabase Analytics: Looks like your Password is incorrect.,clojure.lang.ExceptionInfo: Looks like your Password is incorrect. {:message "Looks like your Password is incorrect.", :errors {:password "check your password"}},	at metabase.driver.util$can_connect_with_details_QMARK_.invokeStatic(util.clj:153),	at metabase.driver.util$can_connect_with_details_QMARK_.doInvoke(util.clj:124),	at clojure.lang.RestFn.invoke(RestFn.java:445),	at metabase.sync.task.sync_databases$sync_and_analyze_database_STAR__BANG_$fn__113775$fn__113776.invoke(sync_databases.clj:85),	at metabase.sync.task.sync_databases$sync_and_analyze_database_STAR__BANG_$fn__113775.invoke(sync_databases.clj:84),	at metabase.sync.task.sync_databases$sync_and_analyze_database_STAR__BANG_.invokeStatic(sync_databases.clj:81),	at metabase.sync.task.sync_databases$sync_and_analyze_database_STAR__BANG_.invoke(sync_databases.clj:74),	at metabase.sync.task.sync_databases$sync_and_analyze_database_BANG_.invokeStatic(sync_databases.clj:113),	at metabase.sync.task.sync_databases$sync_and_analyze_database_BANG_.invoke(sync_databases.clj:101),	at metabase.sync.task.sync_databases.SyncAndAnalyzeDatabase$fn__113806$fn__113807.invoke(sync_databases.clj:118),	at metabase.util.log$with_exception_context_fn.invokeStatic(log.clj:303),	at metabase.util.log$with_exception_context_fn.invoke(log.clj:295),	at metabase.sync.task.sync_databases.SyncAndAnalyzeDatabase$fn__113806.invoke(sync_databases.clj:115),	at metabase.util.log$with_thread_context_fn.invokeStatic(log.clj:85),	at metabase.util.log$with_thread_context_fn.invoke(log.clj:71),	at metabase.sync.task.sync_databases.SyncAndAnalyzeDatabase.execute(sync_databases.clj:115),	at org.quartz.core.JobRunShell.run(JobRunShell.java:202),	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573),Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "metabase_readonly"
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:57:51+01:00 INFO metabase.search.core Reindexing searchable entities
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:57:51+01:00 INFO metabase.search.appdb.index Creating pending index :search_index__w0mfec8_kjm0cawmzblkm for lang en
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:57:51+01:00 INFO metabase.search.models.search-index-metadata Inserted new pending table :search_index__w0mfec8_kjm0cawmzblkm
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:57:51+01:00 INFO metabase.search.appdb.index New pending index :search_index__w0mfec8_kjm0cawmzblkm
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:57:51+01:00 INFO metabase.search.appdb.index Activating pending index :search_index__w0mfec8_kjm0cawmzblkm
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:57:51+01:00 INFO metabase.search.appdb.index Activated pending index :search_index__w0mfec8_kjm0cawmzblkm
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:57:51+01:00 INFO metabase.search.appdb.index Dropped 1 stale indexes: [:search_index___vy4m_edxnpme0omdkmh3]
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:57:51+01:00 INFO metabase.search.core Done reindexing in 370ms (["table" 12] ["collection" 8] ["card" 6] ["dashboard" 5] ["database" 2])
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T09:59:00+01:00 INFO metabase.channel.task.refresh-slack-channel-user-cache Slack is not configured, not refreshing slack user/channel cache.
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.task.sync-databases Update Field values task triggered for Database 4.
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.util [35mSTARTING: Cache field values in postgres Database 4 ''Upseller database 2'' (free: 0.17G, total: 0.47G, ratio: 0.37)[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.util [35mSTARTING: step ''delete-expired-advanced-field-values'' for postgres Database 4 ''Upseller database 2'' (free: 0.17G, total: 0.47G, ratio: 0.37)[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.util [35mFINISHED: step ''delete-expired-advanced-field-values'' for postgres Database 4 ''Upseller database 2'' (474.8 ms) (free: 0.14G, total: 0.47G, ratio: 0.30)[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.util [35mSTARTING: step ''update-field-values'' for postgres Database 4 ''Upseller database 2'' (free: 0.14G, total: 0.47G, ratio: 0.30)[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 245 ''metric'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 244 ''vf_project_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 249 ''status'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 242 ''id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 256 ''data → environmentID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 257 ''id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 259 ''data → successCount'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 263 ''data → count'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 266 ''metric'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 253 ''data → documentID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 255 ''data → name'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 258 ''data → type'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 260 ''data → projectID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 265 ''vf_project_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 254 ''data → model'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 262 ''data → integrationToolName'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 272 ''properties → comment'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 230 ''properties → session_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 232 ''properties → page'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 235 ''project_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 239 ''session_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 227 ''id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 233 ''event_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 238 ''user_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 229 ''properties → cta'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 231 ''properties → prompt'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 236 ''event_name'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 228 ''properties → rating'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 215 ''tenant_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 212 ''data → environmentID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 221 ''tenant_name'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 209 ''data → documentID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 210 ''data → model'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 214 ''data → successCount'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 216 ''data → projectID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 218 ''data → integrationToolName'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 222 ''project_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 223 ''metric'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 213 ''data → type'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 219 ''data → count'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 220 ''tenant_slug'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 211 ''data → name'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 271 ''properties → comment'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 172 ''tenant_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 176 ''user_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 170 ''properties → prompt'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 169 ''event_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 173 ''project_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 177 ''session_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 180 ''tenant_slug'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 168 ''properties → session_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 166 ''properties → rating'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 167 ''properties → cta'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 171 ''properties → page'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 174 ''event_name'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 181 ''tenant_name'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 199 ''data → successCount'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 203 ''data → count'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 204 ''project_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 197 ''tenant_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 193 ''data → documentID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 196 ''data → environmentID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 198 ''data → type'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 200 ''data → projectID'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 202 ''data → integrationToolName'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 205 ''metric'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 194 ''data → model'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 195 ''data → name'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 270 ''properties → comment'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 155 ''event_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 152 ''properties → rating'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 163 ''session_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 154 ''properties → session_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 156 ''properties → prompt'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 158 ''tenant_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 160 ''event_name'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 162 ''user_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 153 ''properties → cta'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 157 ''properties → page'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 159 ''project_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 191 ''error_message'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 182 ''tenant_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 184 ''metric'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 183 ''project_id'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.field-values Field Field 187 ''status'' does not have FieldValues. Skipping...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.util [35mFINISHED: step ''update-field-values'' for postgres Database 4 ''Upseller database 2'' (191.2 ms) (free: 0.13G, total: 0.47G, ratio: 0.27)[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:00:00+01:00 INFO metabase.sync.util [35mFINISHED: Cache field values in postgres Database 4 ''Upseller database 2'' (692.0 ms) (free: 0.13G, total: 0.47G, ratio: 0.27)[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/session/properties 200 94ms (13 DB calls) App DB connections: 0/4 Jetty threads: 3/50 (4 idle, 0 queued) (145 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/user/current 200 57ms (10 DB calls) App DB connections: 1/4 Jetty threads: 3/50 (3 idle, 0 queued) (145 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database 200 60ms (2 DB calls) App DB connections: 4/4 Jetty threads: 12/50 (0 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/bookmark 200 127ms (1 DB calls) App DB connections: 12/12 Jetty threads: 10/50 (2 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/root 200 136ms (3 DB calls) App DB connections: 8/15 Jetty threads: 8/50 (4 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/tree 200 214ms (4 DB calls) App DB connections: 4/15 Jetty threads: 7/50 (5 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/trash 200 232ms (5 DB calls) App DB connections: 3/15 Jetty threads: 7/50 (5 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/search 200 63ms (6 DB calls) App DB connections: 2/15 Jetty threads: 5/50 (7 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5 200 252ms (10 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (8 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5/query_metadata 200 325ms (23 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (8 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database 200 19ms (2 DB calls) App DB connections: 0/15 Jetty threads: 4/50 (8 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 DEBUG metabase.server.middleware.log [32mGET /api/setting/version-info 200 22ms (0 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 DEBUG metabase.server.middleware.log [32mGET /api/pulse/form_input 200 4ms (1 DB calls) App DB connections: 6/15 Jetty threads: 6/50 (6 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:04:21.380693642Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:04:21.360322684Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:04:21.357449457Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/39/card/43/query 202 [ASYNC: completed] 238ms (11 DB calls) App DB connections: 0/15 Jetty threads: 4/50 (8 idle, 0 queued) (151 total active threads) Queries in flight: 1 (0 queued); postgres DB 4 connections: 0/0 (2 threads blocked) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/38/card/42/query 202 [ASYNC: completed] 246ms (12 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (151 total active threads) Queries in flight: 1 (0 queued); postgres DB 4 connections: 0/0 (0 threads blocked) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:21+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/37/card/40/query 202 [ASYNC: completed] 254ms (11 DB calls) App DB connections: 0/15 Jetty threads: 2/50 (10 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued); postgres DB 4 connections: 0/0 (1 threads blocked) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:33+01:00 DEBUG metabase.server.middleware.log [32mDELETE /api/session 204 9ms (1 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (10 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 1}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:34+01:00 DEBUG metabase.server.middleware.log [31mGET /api/user/current 401 6ms (0 DB calls) {:metabase-user-id nil} 
+"Unauthenticated"
+[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:34+01:00 DEBUG metabase.server.middleware.log [32mGET /api/session/properties 200 8ms (0 DB calls) App DB connections: 0/15 Jetty threads: 5/50 (8 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id nil}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:47+01:00 ERROR metabase.session.api Authentication endpoint error,clojure.lang.ExceptionInfo: Password did not match stored password. {:status-code 401, :errors {:password #metabase.util.i18n.UserLocalizedString{:format-string "did not match stored password", :args [], :pluralization-opts {}}}},	at metabase.session.api$do_http_401_on_error.invokeStatic(api.clj:125),	at metabase.session.api$do_http_401_on_error.invoke(api.clj:121),	at metabase.session.api$fn__123446$fn__123452.invoke(api.clj:150),	at metabase.api.macros$_core_fn$core_fn__88043.invoke(macros.clj:427),	at metabase.api.macros$endpoint_handler_STAR_$handler__88085.invoke(macros.clj:623),	at metabase.api.macros$build_ns_handler$ns_handler_STAR___88111.invoke(macros.clj:687),	at metabase.api.open_api.HandlerWithOpenAPISpec.invoke(open_api.clj:42),	at metabase.session.api$_PLUS_log_all_request_failures$fn__123612.invoke(api.clj:334),	at metabase.api.open_api.HandlerWithOpenAPISpec.invoke(open_api.clj:42),	at metabase.api.util.handlers$_route_map_handler$fn__99561.invoke(handlers.clj:23),	at metabase.api.open_api.HandlerWithOpenAPISpec.invoke(open_api.clj:42),	at compojure.core$routes$fn__99498$f__99499.invoke(core.clj:198),	at compojure.core$routes$fn__99498$f__99499$respond_SINGLEQUOTE___99500.invoke(core.clj:197),	at metabase.api_routes.routes$fn__123867.invokeStatic(routes.clj:99),	at metabase.api_routes.routes$fn__123867.invoke(routes.clj:98),	at metabase.api.open_api.HandlerWithOpenAPISpec.invoke(open_api.clj:42),	at compojure.core$routes$fn__99498$f__99499.invoke(core.clj:198),	at compojure.core$routes$fn__99498.invoke(core.clj:200),	at metabase.api.open_api.HandlerWithOpenAPISpec.invoke(open_api.clj:42)
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:04:47+01:00 DEBUG metabase.server.middleware.log [31mPOST /api/session 401 106ms (1 DB calls) {:metabase-user-id nil} 
+{:errors
+ {:password
+  #metabase.util.i18n.UserLocalizedString{:format-string "did not match stored password",
+                                          :args [],
+                                          :pluralization-opts {}}}}
+[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:56+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/session 200 169ms (10 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (11 idle, 0 queued) (151 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id nil}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:56+01:00 DEBUG metabase.server.middleware.log [32mGET /api/user/current 200 49ms (10 DB calls) App DB connections: 2/15 Jetty threads: 4/50 (9 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:56+01:00 DEBUG metabase.server.middleware.log [32mGET /api/session/properties 200 60ms (12 DB calls) App DB connections: 2/15 Jetty threads: 3/50 (9 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database 200 22ms (2 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (10 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/search 200 37ms (5 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (10 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/bookmark 200 33ms (1 DB calls) App DB connections: 8/15 Jetty threads: 8/50 (6 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/recents 200 75ms (5 DB calls) App DB connections: 2/15 Jetty threads: 7/50 (7 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/trash 200 33ms (3 DB calls) App DB connections: 2/15 Jetty threads: 7/50 (7 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/tree 200 42ms (4 DB calls) App DB connections: 1/15 Jetty threads: 7/50 (7 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/root 200 61ms (3 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (8 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/popular_items 200 88ms (7 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/setting/version-info 200 19ms (0 DB calls) App DB connections: 1/15 Jetty threads: 5/50 (9 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database 200 23ms (2 DB calls) App DB connections: 2/15 Jetty threads: 5/50 (9 idle, 0 queued) (153 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:05:57+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/popular_items 200 34ms (7 DB calls) App DB connections: 0/15 Jetty threads: 4/50 (9 idle, 0 queued) (154 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5 200 125ms (10 DB calls) App DB connections: 2/15 Jetty threads: 4/50 (8 idle, 0 queued) (154 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5/query_metadata 200 148ms (23 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (154 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 DEBUG metabase.server.middleware.log [32mGET /api/pulse/form_input 200 5ms (1 DB calls) App DB connections: 4/15 Jetty threads: 6/50 (7 idle, 0 queued) (154 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:06:02.702021188Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/38/card/42/query 202 [ASYNC: completed] 212ms (12 DB calls) App DB connections: 1/15 Jetty threads: 2/50 (10 idle, 0 queued) (154 total active threads) Queries in flight: 3 (0 queued); postgres DB 4 connections: 0/0 (1 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:06:02.700604535Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:06:02.715055076Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/37/card/40/query 202 [ASYNC: completed] 254ms (11 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (154 total active threads) Queries in flight: 0 (0 queued); postgres DB 4 connections: 0/0 (0 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:02+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/39/card/43/query 202 [ASYNC: completed] 240ms (11 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (154 total active threads) Queries in flight: 0 (0 queued); postgres DB 4 connections: 0/0 (2 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:39+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/recents 200 15ms (5 DB calls) App DB connections: 2/15 Jetty threads: 4/50 (8 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:39+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/popular_items 200 22ms (7 DB calls) App DB connections: 0/15 Jetty threads: 4/50 (8 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:41+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/4 200 101ms (23 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (7 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:41+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/4/query_metadata 200 118ms (7 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (8 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:41+01:00 DEBUG metabase.server.middleware.log [32mGET /api/pulse/form_input 200 6ms (1 DB calls) App DB connections: 2/15 Jetty threads: 4/50 (7 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:41+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: password authentication failed for user "metabase_readonly"
+{:database_id 2,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:06:41.308133658Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:41+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/4/dashcard/36/card/39/query 202 [ASYNC: completed] 313ms (16 DB calls) App DB connections: 0/15 Jetty threads: 2/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 1 (0 queued); postgres DB 2 connections: 0/0 (0 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:44+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/recents 200 20ms (5 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:44+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/popular_items 200 28ms (7 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:45+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5 200 123ms (10 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:45+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5/query_metadata 200 144ms (23 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:45+01:00 DEBUG metabase.server.middleware.log [32mGET /api/pulse/form_input 200 6ms (1 DB calls) App DB connections: 3/15 Jetty threads: 6/50 (7 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:46+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:06:45.950355820Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:46+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/39/card/43/query 202 [ASYNC: completed] 212ms (11 DB calls) App DB connections: 0/15 Jetty threads: 2/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 3 (0 queued); postgres DB 4 connections: 0/0 (1 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:46+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:06:45.954749885Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:46+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/37/card/40/query 202 [ASYNC: completed] 245ms (11 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (8 idle, 0 queued) (155 total active threads) Queries in flight: 1 (0 queued); postgres DB 4 connections: 0/0 (2 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:46+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:06:45.938728732Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:46+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/38/card/42/query 202 [ASYNC: completed] 248ms (12 DB calls) App DB connections: 0/15 Jetty threads: 2/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 1 (0 queued); postgres DB 4 connections: 0/0 (0 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:49+01:00 DEBUG metabase.server.middleware.log [32mGET /api/user/1 200 11ms (2 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (7 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:49+01:00 DEBUG metabase.server.middleware.log [32mGET /api/revision 200 94ms (12 DB calls) App DB connections: 1/15 Jetty threads: 3/50 (8 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:58+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/recents 200 22ms (5 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:06:58+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/popular_items 200 19ms (7 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:04+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5 200 109ms (24 DB calls) App DB connections: 1/15 Jetty threads: 3/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:04+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5/query_metadata 200 68ms (11 DB calls) App DB connections: 1/15 Jetty threads: 3/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:05+01:00 DEBUG metabase.server.middleware.log [32mGET /api/pulse/form_input 200 5ms (1 DB calls) App DB connections: 4/15 Jetty threads: 6/50 (7 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:05+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:07:05.213199710Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:05+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/37/card/40/query 202 [ASYNC: completed] 203ms (12 DB calls) App DB connections: 0/15 Jetty threads: 2/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 3 (0 queued); postgres DB 4 connections: 0/0 (0 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:05+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:07:05.222760423Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:05+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:07:05.224196948Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:05+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/38/card/42/query 202 [ASYNC: completed] 213ms (11 DB calls) App DB connections: 0/15 Jetty threads: 2/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 2 (0 queued); postgres DB 4 connections: 0/0 (1 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:05+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/39/card/43/query 202 [ASYNC: completed] 224ms (11 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (8 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued); postgres DB 4 connections: 0/0 (2 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:07+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/popular_items 200 26ms (7 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:07+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/recents 200 25ms (5 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (9 idle, 0 queued) (155 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:27+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database/4/schemas 200 20ms (2 DB calls) App DB connections: 1/15 Jetty threads: 3/50 (8 idle, 0 queued) (150 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:27+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database/4 200 7ms (1 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (8 idle, 0 queued) (150 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:29+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database/4/schema/analytics 200 11ms (2 DB calls) App DB connections: 1/15 Jetty threads: 3/50 (8 idle, 0 queued) (150 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:30+01:00 DEBUG metabase.server.middleware.log [32mGET /api/timeline 200 7ms (1 DB calls) App DB connections: 2/15 Jetty threads: 4/50 (7 idle, 0 queued) (150 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:30+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dataset/query_metadata 200 50ms (7 DB calls) App DB connections: 1/15 Jetty threads: 3/50 (8 idle, 0 queued) (150 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:31+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:07:31.018311324Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:07:31+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dataset 202 [ASYNC: completed] 204ms (4 DB calls) App DB connections: 0/15 Jetty threads: 2/50 (8 idle, 0 queued) (150 total active threads) Queries in flight: 1 (0 queued); postgres DB 4 connections: 0/0 (0 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:12:53+01:00 DEBUG metabase.server.middleware.log [32mGET /api/health 200 4ms (0 DB calls) App DB connections: 2/15 Jetty threads: 5/50 (3 idle, 0 queued) (144 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:12:53+01:00 DEBUG metabase.server.middleware.log [32mGET /api/user-key-value/namespace/user_acknowledgement/key/upsell-dev_instances 204 6ms (1 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (3 idle, 0 queued) (146 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:12:53+01:00 DEBUG metabase.server.middleware.log [32mGET /api/setting 200 89ms (15 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (4 idle, 0 queued) (146 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:12:59+01:00 DEBUG metabase.server.middleware.log [32mGET /api/bug-reporting/details 200 6ms (1 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (4 idle, 0 queued) (146 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/session/properties 200 47ms (12 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (4 idle, 0 queued) (146 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/user/current 200 30ms (10 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (4 idle, 0 queued) (146 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database 200 30ms (2 DB calls) App DB connections: 5/15 Jetty threads: 8/50 (0 idle, 0 queued) (150 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/root 200 33ms (3 DB calls) App DB connections: 4/15 Jetty threads: 8/50 (0 idle, 0 queued) (150 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/trash 200 34ms (3 DB calls) App DB connections: 3/15 Jetty threads: 9/50 (0 idle, 0 queued) (150 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/bookmark 200 22ms (1 DB calls) App DB connections: 3/15 Jetty threads: 8/50 (2 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/collection/tree 200 45ms (4 DB calls) App DB connections: 2/15 Jetty threads: 6/50 (4 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/search 200 59ms (5 DB calls) App DB connections: 2/15 Jetty threads: 5/50 (5 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/recents 200 37ms (5 DB calls) App DB connections: 2/15 Jetty threads: 4/50 (6 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/popular_items 200 30ms (7 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (6 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database 200 21ms (2 DB calls) App DB connections: 2/15 Jetty threads: 7/50 (4 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/setting/version-info 200 28ms (0 DB calls) App DB connections: 1/15 Jetty threads: 5/50 (5 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:37+01:00 DEBUG metabase.server.middleware.log [32mGET /api/activity/popular_items 200 49ms (7 DB calls) App DB connections: 2/15 Jetty threads: 4/50 (6 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5 200 90ms (10 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (8 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 DEBUG metabase.server.middleware.log [32mGET /api/dashboard/5/query_metadata 200 117ms (23 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (8 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 DEBUG metabase.server.middleware.log [32mGET /api/pulse/form_input 200 10ms (1 DB calls) App DB connections: 4/15 Jetty threads: 6/50 (6 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:13:39.449694595Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/39/card/43/query 202 [ASYNC: completed] 240ms (12 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (7 idle, 0 queued) (152 total active threads) Queries in flight: 2 (0 queued); postgres DB 4 connections: 0/0 (1 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:13:39.452671972Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/37/card/40/query 202 [ASYNC: completed] 255ms (12 DB calls) App DB connections: 0/15 Jetty threads: 3/50 (7 idle, 0 queued) (152 total active threads) Queries in flight: 1 (0 queued); postgres DB 4 connections: 0/0 (0 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 ERROR metabase.query-processor.middleware.catch-exceptions Error processing query: FATAL: Max client connections reached
+{:database_id 4,
+ :parameterized false,
+ :started_at #t "2025-12-08T09:13:39.457690918Z[GMT]",
+ :via
+ [{:status :failed,
+   :class com.mchange.v2.resourcepool.CannotAcquireResourceException,
+   :error "A ResourcePool could not acquire a resource from its primary factory or source.",
+   :stacktrace
+   ["com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1660)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:710)"
+    "com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:616)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndScacheMarkConnectionInUse(C3P0PooledConnectionPool.java:966)"
+    "com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:894)"
+    "com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:105)"
+    "--> driver.sql_jdbc.execute$do_with_resolved_connection$get_conn__95046.invoke(execute.clj:343)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invokeStatic(execute.clj:346)"
+    "driver.sql_jdbc.execute$do_with_resolved_connection.invoke(execute.clj:327)"
+    "driver.sql_jdbc.execute$fn__95107.invokeStatic(execute.clj:416)"
+    "driver.sql_jdbc.execute$fn__95107.invoke(execute.clj:414)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invokeStatic(execute.clj:760)"
+    "driver.sql_jdbc.execute$execute_reducible_query.invoke(execute.clj:749)"
+    "driver.sql_jdbc$fn__98000.invokeStatic(sql_jdbc.clj:87)"
+    "driver.sql_jdbc$fn__98000.invoke(sql_jdbc.clj:85)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invokeStatic(pipeline.clj:59)"
+    "query_processor.pipeline$_STAR_execute_STAR_.invoke(pipeline.clj:44)"
+    "query_processor.pipeline$_STAR_run_STAR_.invokeStatic(pipeline.clj:119)"
+    "query_processor.pipeline$_STAR_run_STAR_.invoke(pipeline.clj:108)"
+    "query_processor.execute$run.invokeStatic(execute.clj:72)"
+    "query_processor.execute$run.invoke(execute.clj:62)"
+    "query_processor.middleware.enterprise$swap_destination_db_middleware$fn__73174.invoke(enterprise.clj:75)"
+    "query_processor.middleware.enterprise$apply_impersonation_postprocessing_middleware$fn__73156.invoke(enterprise.clj:50)"
+    "query_processor.middleware.update_used_cards$update_used_cards_BANG_$fn__75715.invoke(update_used_cards.clj:67)"
+    "query_processor.execute$add_native_form_to_result_metadata$fn__75755.invoke(execute.clj:27)"
+    "query_processor.execute$add_preprocessed_query_to_result_metadata_for_userland_query$fn__75762.invoke(execute.clj:39)"
+    "query_processor.middleware.cache$maybe_return_cached_results$maybe_return_cached_results_STAR___75651.invoke(cache.clj:246)"
+    "query_processor.middleware.permissions$check_query_permissions$fn__72351.invoke(permissions.clj:153)"
+    "query_processor.middleware.enterprise$check_download_permissions_middleware$fn__73184.invoke(enterprise.clj:92)"
+    "query_processor.execute$execute$fn__75794.invoke(execute.clj:99)"
+    "query_processor.setup$do_with_qp_setup.invokeStatic(setup.clj:232)"
+    "query_processor.setup$do_with_qp_setup.invoke(setup.clj:223)"
+    "query_processor.execute$execute.invokeStatic(execute.clj:98)"
+    "query_processor.execute$execute.invoke(execute.clj:94)"
+    "query_processor$process_query_STAR__STAR_.invokeStatic(query_processor.clj:50)"
+    "query_processor$process_query_STAR__STAR_.invoke(query_processor.clj:45)"
+    "query_processor.middleware.enterprise$fn__73201$handle_audit_app_internal_queries__73202$fn__73204.invoke(enterprise.clj:124)"
+    "query_processor.middleware.enterprise$handle_audit_app_internal_queries_middleware$fn__73212.invoke(enterprise.clj:131)"
+    "query_processor.middleware.process_userland_query$process_userland_query_middleware$fn__80601.invoke(process_userland_query.clj:181)"
+    "query_processor.middleware.catch_e...
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:39+01:00 DEBUG metabase.server.middleware.log [32mPOST /api/dashboard/5/dashcard/38/card/42/query 202 [ASYNC: completed] 258ms (11 DB calls) App DB connections: 0/15 Jetty threads: 2/50 (8 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued); postgres DB 4 connections: 0/0 (0 threads blocked) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:43+01:00 DEBUG metabase.server.middleware.log [32mGET /api/user/current 200 31ms (10 DB calls) App DB connections: 2/15 Jetty threads: 5/50 (6 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:43+01:00 DEBUG metabase.server.middleware.log [32mGET /api/session/properties 200 60ms (12 DB calls) App DB connections: 1/15 Jetty threads: 4/50 (6 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:43+01:00 DEBUG metabase.server.middleware.log [32mGET /api/database 200 27ms (2 DB calls) App DB connections: 0/15 Jetty threads: 6/50 (4 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:13:43+01:00 DEBUG metabase.server.middleware.log [32mGET /api/search 200 35ms (3 DB calls) App DB connections: 1/15 Jetty threads: 3/50 (7 idle, 0 queued) (152 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m
+[029cde25-a247-4db9-a9de-ac2ab4270bef] 2025-12-08T10:16:20+01:00 DEBUG metabase.server.middleware.log [32mGET /api/logger/presets 200 32ms (0 DB calls) App DB connections: 0/9 Jetty threads: 3/50 (8 idle, 0 queued) (149 total active threads) Queries in flight: 0 (0 queued) {:metabase-user-id 5}[0m

@@ -2,8 +2,6 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import {
   getTenantForWriteToken,
   insertEvents,
-  getAllowedOriginsForTenant,
-  isOriginGloballyAllowed,
   type IncomingEventPayload,
   type EventInsertRow,
 } from '../lib/events.js';
@@ -79,13 +77,9 @@ function sanitizeProperties(value: unknown): Record<string, unknown> {
 
 type CorsHeaders = Record<string, string>;
 
-function buildCorsHeaders(origin: string | undefined, allowedOrigins: Set<string>): CorsHeaders | null {
-  if (!origin || !allowedOrigins.has(origin)) {
-    return null;
-  }
-
+function buildCorsHeaders(origin?: string): CorsHeaders {
   return {
-    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Origin': origin ?? '*',
     'Access-Control-Allow-Methods': 'OPTIONS, POST',
     'Access-Control-Allow-Headers': 'Authorization, Content-Type, X-Event-Token',
   };
@@ -104,26 +98,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const origin = typeof req.headers.origin === 'string' ? req.headers.origin : undefined;
 
   if (req.method === 'OPTIONS') {
-    if (!origin) {
-      return res.status(400).end();
-    }
-
-    let allowed = false;
-    try {
-      allowed = await isOriginGloballyAllowed(origin);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to validate origin';
-      return res.status(500).json({ error: message });
-    }
-
-    if (!allowed) {
-      return res.status(403).json({ error: 'Origin not allowed.' });
-    }
-
-    const headers = buildCorsHeaders(origin, new Set([origin]));
-    if (!headers) {
-      return res.status(500).json({ error: 'Failed to build CORS headers.' });
-    }
+    const headers = buildCorsHeaders(origin);
     applyCorsHeaders(res, headers);
     return res.status(200).end();
   }
@@ -150,19 +125,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(403).json({ error: 'Invalid or inactive event write token.' });
   }
 
-  let allowedOrigins: Set<string>;
-  try {
-    allowedOrigins = await getAllowedOriginsForTenant(tenantWithToken.tenant.id);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Failed to load tenant origins';
-    return res.status(500).json({ error: message });
-  }
-
-  const corsHeaders = buildCorsHeaders(origin, allowedOrigins);
-
-  if (!corsHeaders) {
-    return res.status(403).json({ error: 'Origin not allowed for this tenant.' });
-  }
+  const corsHeaders = buildCorsHeaders(origin);
 
   const body = parseBody(req);
   const events = normalizeEvents(body);
