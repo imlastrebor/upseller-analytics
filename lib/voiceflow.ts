@@ -41,14 +41,15 @@ export async function queryVoiceflowUsage(
   apiKey: string,
 ): Promise<VoiceflowUsageApiResponse> {
   const payload = {
+    resources: [
+      {
+        type: 'project',
+        id: params.projectID,
+        ...(params.environmentID ? { environmentID: params.environmentID } : {}),
+      },
+    ],
     data: {
       name: params.metric,
-      resources: [
-        {
-          projectID: params.projectID,
-          ...(params.environmentID ? { environmentID: params.environmentID } : {}),
-        },
-      ],
       filter: {
         startTime: params.startTime,
         endTime: params.endTime,
