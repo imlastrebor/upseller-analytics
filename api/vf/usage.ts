@@ -9,6 +9,10 @@ import {
 } from '../../lib/voiceflow.js';
 import { fetchTenantConfig } from '../../lib/tenants.js';
 import { decryptSecret } from '../../lib/crypto.js';
+import {
+  persistVoiceflowUsage,
+  recordVoiceflowPullFailure,
+} from '../../lib/voiceflow-storage.js';
 
 type UsageRequestParams = VoiceflowUsageQuery;
 
@@ -121,6 +125,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const result = await queryVoiceflowUsage(params, apiKey);
+    try {
+      await persistVoiceflowUsage({
+        tenantId: tenantConfig.tenant.id,
+        projectId: params.projectID,
+        metric: params.metric,
+        windowStart: params.startTime,
+        windowEnd: params.endTime,
+        result,
+      });
+    } catch (storageError) {
+      try {
+        await recordVoiceflowPullFailure({
+          tenantId: tenantConfig.tenant.id,
+          projectId: params.projectID,
+          metric: params.metric,
+          windowStart: params.startTime,
+          windowEnd: params.endTime,
+          error: storageError,
+        });
+      } catch (logError) {
+        console.error('Failed to log Voiceflow pull failure:', logError);
+      }
+
+      const detail =
+        storageError instanceof Error ? storageError.message : 'Failed to persist Voiceflow data';
+      return res.status(500).json({
+        error: 'Voiceflow data fetched but failed to store.',
+        detail,
+      });
+    }
+
     return res.status(200).json({
       queriedAt: new Date().toISOString(),
       parameters: {
@@ -136,6 +171,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       result,
     });
   } catch (error) {
+    try {
+      await recordVoiceflowPullFailure({
+        tenantId: tenantConfig.tenant.id,
+        projectId: params.projectID,
+        metric: params.metric,
+        windowStart: params.startTime,
+        windowEnd: params.endTime,
+        error,
+      });
+    } catch (logError) {
+      console.error('Failed to log Voiceflow pull failure:', logError);
+    }
+
     if (error instanceof VoiceflowApiError) {
       return res.status(error.status).json({
         error: error.message,

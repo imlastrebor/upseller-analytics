@@ -27,6 +27,19 @@ select
   created_at
 from public.vf_usage;
 
+create or replace view analytics.vf_usage_with_tenant as
+select
+  u.tenant_id,
+  t.slug as tenant_slug,
+  t.name as tenant_name,
+  u.vf_project_id as project_id,
+  u.metric,
+  u.period,
+  u.data,
+  u.created_at
+from public.vf_usage u
+join public.tenants t on t.id = u.tenant_id;
+
 create or replace view analytics.vf_pulls as
 select
   tenant_id,

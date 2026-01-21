@@ -14,17 +14,26 @@ import {
   type VoiceflowProjectRecord,
 } from '../../lib/tenants.js';
 import { decryptSecret } from '../../lib/crypto.js';
+import {
+  persistVoiceflowUsage,
+  recordVoiceflowPullFailure,
+} from '../../lib/voiceflow-storage.js';
+
+type AggregatedResultBase = {
+  persisted?: boolean;
+  persistenceError?: string;
+};
 
 type AggregatedResult =
-  | {
+  | ({
       status: 'fulfilled';
       tenant: Pick<TenantRecord, 'id' | 'slug' | 'name'>;
       projectID: string;
       metric: VoiceflowMetric;
       environmentID: string | null;
       result: Record<string, unknown>;
-    }
-  | {
+    } & AggregatedResultBase)
+  | ({
       status: 'rejected';
       tenant: Pick<TenantRecord, 'id' | 'slug' | 'name'>;
       projectID: string;
@@ -35,7 +44,7 @@ type AggregatedResult =
         detail?: unknown;
         status?: number;
       };
-    };
+    } & AggregatedResultBase);
 
 function parseCommaSeparated(value: string): string[] {
   return value
@@ -269,7 +278,67 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     };
   });
 
-  const succeeded = aggregated.filter((item) => item.status === 'fulfilled').length;
+  const persistedResults: AggregatedResult[] = await Promise.all(
+    aggregated.map(async (item, index) => {
+      const task = tasks[index];
+
+      if (item.status === 'fulfilled') {
+        try {
+          await persistVoiceflowUsage({
+            tenantId: task.tenant.id,
+            projectId: task.project.vf_project_id,
+            metric: task.metric,
+            windowStart: startTime,
+            windowEnd: endTime,
+            result: item.result,
+          });
+
+          return { ...item, persisted: true };
+        } catch (storageError) {
+          try {
+            await recordVoiceflowPullFailure({
+              tenantId: task.tenant.id,
+              projectId: task.project.vf_project_id,
+              metric: task.metric,
+              windowStart: startTime,
+              windowEnd: endTime,
+              error: storageError,
+            });
+          } catch (logError) {
+            console.error('Failed to log Voiceflow pull failure:', logError);
+          }
+
+          return {
+            ...item,
+            persisted: false,
+            persistenceError:
+              storageError instanceof Error
+                ? storageError.message
+                : 'Failed to persist Voiceflow data',
+          };
+        }
+      }
+
+      try {
+        await recordVoiceflowPullFailure({
+          tenantId: task.tenant.id,
+          projectId: task.project.vf_project_id,
+          metric: task.metric,
+          windowStart: startTime,
+          windowEnd: endTime,
+          error: item.error,
+        });
+      } catch (logError) {
+        console.error('Failed to log Voiceflow pull failure:', logError);
+      }
+
+      return { ...item, persisted: false };
+    }),
+  );
+
+  const succeeded = persistedResults.filter(
+    (item) => item.status === 'fulfilled' && item.persisted !== false,
+  ).length;
   const tenantCount = new Set(tasks.map((task) => task.tenant.id)).size;
   const projectCount = new Set(
     tasks.map((task) => `${task.tenant.id}:${task.project.vf_project_id}`),
@@ -288,6 +357,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     limit,
     metrics,
     environment: environmentOverride ?? null,
-    results: aggregated,
+    results: persistedResults,
   });
 }
